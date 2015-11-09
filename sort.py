@@ -1,12 +1,10 @@
-import os, datetime, errno
+import os, datetime, errno, argparse, sys
 
 # TODO: 
 # add argments.
 # add multiple file extensions
 #
 
-CWD = os.getcwd()
-ext = ['.mkv']
 
 def create_file_list(CWD):
     """ takes string as path, returns tuple(files,date) """
@@ -44,7 +42,17 @@ def move_files_to_folders(files):
                 raise 
     return len(files)
 
-files = create_file_list(CWD)
-create_directories(files)
-print "Moved %i files" % move_files_to_folders(files)
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser(prog=sys.argv[0], usage='%(prog)s [options]')
+    parser.add_argument("-e","--extension",action='append',help="File extensions to match",required=True)
+    args = parser.parse_args()
+  
+    ext =  ['.' + e for e in args.extension]
+    print "Moving files with extensions:", ext
+    CWD = os.getcwd()
+    files = create_file_list(CWD)
+    create_directories(files)
+    print "Moved %i files" % move_files_to_folders(files)
 
