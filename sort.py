@@ -1,11 +1,5 @@
 import os, datetime, errno, argparse, sys
 
-# TODO: 
-# add argments.
-# add multiple file extensions
-#
-
-
 def create_file_list(CWD):
     """ takes string as path, returns tuple(files,date) """
 
